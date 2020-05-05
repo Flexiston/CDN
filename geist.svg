@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="150" height="auto" viewBox="0 0 224 190" fill="none">
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M112.084 20.2332L206.168 179.987H18L112.084 20.2332Z" stroke="url(#paint1_linear)" stroke-width="20"/>
+  <defs>
+    <linearGradient id="paint1_linear" x1="18" y1="20.2332" x2="18" y2="179.987" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stopColor="#FF0080">
+        <animate attributeName="stop-color" values="#FF0080; #0076FF; #FF0080" dur="4s" repeatCount="indefinite"/>
+      </stop>
+      <stop offset="100%" stopColor="#0076FF">
+        <animate attributeName="stop-color" values="#0076FF; #FF0080; #0076FF" dur="4s" repeatCount="indefinite"/>
+      </stop>
+    </linearGradient>
+  </defs>
+</svg>
