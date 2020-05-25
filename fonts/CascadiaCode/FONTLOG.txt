@@ -1,0 +1,30 @@
+FONTLOG for Cascadia Code
+===================================
+
+This file provides detailed information on the Cascadia Code font. This information should be distributed along with the Cascadia Code font and any derivative works.
+
+Basic Font Information
+-----------------------------------
+
+Cascadia Code is a monospaced font shipped by Microsoft. It includes programming ligatures and is intended for use in terminal applications as well as text editors.
+
+Contribution Information
+-----------------------------------
+
+Documentation and contribution guidelines can be found at: https://github.com/microsoft/cascadia-code
+
+ChangeLog
+-----------------------------------
+
+09-18-2019 (Aaron Bell) Cascadia Code Version 1909.16
+- Initial release
+
+Acknowledgements
+-----------------------------------
+
+If you make modifications, be sure to add your name (N), email (E), web-address (if you have one) (W), and description (D). This list is in alphabetical order.
+
+N: Aaron Bell
+E: aaron@sajatypeworks.com
+W: http://sajatypeworks.com
+D: Original font designer
