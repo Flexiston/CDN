@@ -1,87 +1,79 @@
-.elem-field {
-  border-color: #e6e6e6;
-  margin-bottom: 10px;
-  padding: 0;
-  border-style: solid;
+:root {
+  --card-radius: 4px;
 }
-
-.elem-field legend {
-  margin-left: 20px;
-  padding: 0 10px;
-  font-size: 20px;
-  font-weight: 300;
-}
-
-.field-title {
-  margin: 10px 0 20px;
-  border-width: 1px 0 0;
-}
-
-.timeline {
-  padding-left: 5px;
-}
-
-.timeline-item {
-  position: relative;
-  list-style: none !important;
-  padding-bottom: 5px;
-}
-
-.timeline-item:first-child:before {
-  display: block;
-}
-
-.timeline-item:last-child:before {
-  display: none;
-}
-
-.timeline-item:before {
-  content: '';
-  position: absolute;
-  left: 5px;
-  top: 0;
-  z-index: 0;
-  width: 1px;
-  height: 100%;
-}
-
-.timeline-item:before, hr {
-  background-color: #e6e6e6;
-}
-
-.timeline-axis {
-  position: absolute;
-  left: -5px;
-  top: 0;
-  z-index: 10;
-  width: 20px;
-  height: 20px;
-  line-height: 20px;
-  background-color: #fff;
-  color: #5FB878;
-  border-radius: 50%;
-  text-align: center;
-}
-
-.timeline-icon {
-  font-family: timeline-icon !important;
-  font-size: 16px;
-  font-style: normal;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-.timeline-title {
-  position: relative;
-  margin-bottom: 10px;
-}
-
-.timeline-content {
+/*短代码-时间线*/
+.argon-timeline {
+  margin-left: 110px;
+  border-left: 3px solid rgba(var(--themecolor-rgbstr), 0.2);
   padding-left: 25px;
+  position: relative;
+  padding-top: 30px;
+  padding-bottom: 10px;
 }
-
-.timeline-content-text {
-  line-height: 22px;
-  font-size: 14px;
-  color: #666;
+.argon-timeline-time {
+  position: absolute;
+  left: -110px;
+  margin-top: 12px;
+  width: 85px;
+  text-align: right;
+  font-size: 15px;
+  line-height: 26px;
+}
+.argon-timeline-card {
+  margin-bottom: 35px;
+  padding: 18px 25px;
+}
+.argon-timeline-card:before {
+  content: "";
+  position: absolute;
+  left: -35px;
+  top: 17px;
+  background: var(--themecolor);
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+}
+.argon-timeline-title {
+  font-size: 17px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+.card .card {
+  animation: none;
+}
+.card {
+  animation: card-show 0.25s ease-out;
+  transform-origin: center top;
+  position: relative;
+  border-radius: var(--card-radius);
+}
+.bg-gradient-secondary {
+  background: linear-gradient(87deg, #f4f5f7 0, #f4f4f7 100%) !important;
+}
+.shadow-sm {
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+[class*=shadow] {
+  transition: all .15s ease;
+}
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  border: 0.0625rem solid rgba(0, 0, 0, 0.05);
+  border-radius: 0.25rem;
+  background-color: #fff;
+  background-clip: border-box;
+}
+@keyframes card-show {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
 }
