@@ -63,6 +63,7 @@
 .timeline-title {
   position: relative;
   margin-bottom: 10px;
+  font-size: larger;
 }
 .timeline-content {
   padding-left: 25px;
