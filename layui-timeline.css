@@ -29,7 +29,7 @@
   display: none;
 }
 .timeline-item::before {
-  content: "";
+  content: '';
   position: absolute;
   left: 4px;
   top: 0;
