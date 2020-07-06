@@ -346,6 +346,9 @@ var customSearch;
 		$('.scroll-down').on('click', function () {
 	    scrolltoElement('.l_body');
 	  });
+		setTimeout(function () {
+			$('#loading-bar-wrapper').fadeOut(500);
+		}, 300);
 	});
 
 })(jQuery);
