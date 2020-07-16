@@ -1,1 +1,134 @@
-function clickEffect(){let balls=[];let longPressed=false;let longPress;let multiplier=0;let width,height;let origin;let normal;let ctx;const colours=["#F73859","#14FFEC","#00E0FF","#FF99FE","#FAF15D"];const canvas=document.createElement("canvas");document.body.appendChild(canvas);canvas.setAttribute("style","width: 100%; height: 100%; top: 0; left: 0; z-index: 99999; position: fixed; pointer-events: none;");const pointer=document.createElement("span");pointer.classList.add("pointer");document.body.appendChild(pointer);if(canvas.getContext&&window.addEventListener){ctx=canvas.getContext("2d");updateSize();window.addEventListener('resize',updateSize,false);loop();window.addEventListener("mousedown",function(e){pushBalls(randBetween(10,20),e.clientX,e.clientY);document.body.classList.add("is-pressed");longPress=setTimeout(function(){document.body.classList.add("is-longpress");longPressed=true},500)},false);window.addEventListener("mouseup",function(e){clearInterval(longPress);if(longPressed==true){document.body.classList.remove("is-longpress");pushBalls(randBetween(50+Math.ceil(multiplier),100+Math.ceil(multiplier)),e.clientX,e.clientY);longPressed=false}document.body.classList.remove("is-pressed")},false);window.addEventListener("mousemove",function(e){let x=e.clientX;let y=e.clientY;pointer.style.top=y+"px";pointer.style.left=x+"px"},false)}else{console.log("canvas or addEventListener is unsupported!")}function updateSize(){canvas.width=window.innerWidth*2;canvas.height=window.innerHeight*2;canvas.style.width=window.innerWidth+'px';canvas.style.height=window.innerHeight+'px';ctx.scale(2,2);width=(canvas.width=window.innerWidth);height=(canvas.height=window.innerHeight);origin={x:width/2,y:height/2};normal={x:width/2,y:height/2}}class Ball{constructor(x=origin.x,y=origin.y){this.x=x;this.y=y;this.angle=Math.PI*2*Math.random();if(longPressed==true){this.multiplier=randBetween(14+multiplier,15+multiplier)}else{this.multiplier=randBetween(6,12)}this.vx=(this.multiplier+Math.random()*0.5)*Math.cos(this.angle);this.vy=(this.multiplier+Math.random()*0.5)*Math.sin(this.angle);this.r=randBetween(8,12)+3*Math.random();this.color=colours[Math.floor(Math.random()*colours.length)]}update(){this.x+=this.vx-normal.x;this.y+=this.vy-normal.y;normal.x=-2/window.innerWidth*Math.sin(this.angle);normal.y=-2/window.innerHeight*Math.cos(this.angle);this.r-=0.3;this.vx*=0.9;this.vy*=0.9}}function pushBalls(count=1,x=origin.x,y=origin.y){for(let i=0;i<count;i++){balls.push(new Ball(x,y))}}function randBetween(min,max){return Math.floor(Math.random()*max)+min}function loop(){ctx.fillStyle="rgba(255, 255, 255, 0)";ctx.clearRect(0,0,canvas.width,canvas.height);for(let i=0;i<balls.length;i++){let b=balls[i];if(b.r<0)continue;ctx.fillStyle=b.color;ctx.beginPath();ctx.arc(b.x,b.y,b.r,0,Math.PI*2,false);ctx.fill();b.update()}if(longPressed==true){multiplier+=0.2}else if(!longPressed&&multiplier>=0){multiplier-=0.4}removeBall();requestAnimationFrame(loop)}function removeBall(){for(let i=0;i<balls.length;i++){let b=balls[i];if(b.x+b.r<0||b.x-b.r>width||b.y+b.r<0||b.y-b.r>height||b.r<0){balls.splice(i,1)}}}}clickEffect();
+var canvasEl = document.querySelector('.fireworks')
+if (canvasEl) {
+  var ctx = canvasEl.getContext('2d')
+  var numberOfParticules = 30
+  var pointerX = 0
+  var pointerY = 0
+  // var tap = ('ontouchstart' in window || navigator.msMaxTouchPoints) ? 'touchstart' : 'mousedown'
+  // Fixed the mobile scroll
+  var tap = 'mousedown'
+  var colors = ["102, 167, 221", "62, 131, 225", "33, 78, 194"]
+
+  var setCanvasSize = debounce(function () {
+    canvasEl.width = window.innerWidth
+    canvasEl.height = window.innerHeight
+    canvasEl.style.width = window.innerWidth + 'px'
+    canvasEl.style.height = window.innerHeight + 'px'
+    canvasEl.getContext('2d').scale(1, 1)
+  }, 500)
+
+  var render = anime({
+    duration: Infinity,
+    update: function () {
+      ctx.clearRect(0, 0, canvasEl.width, canvasEl.height)
+    }
+  })
+
+  document.addEventListener(tap, function (e) {
+    if (e.target.id !== 'sidebar' && e.target.id !== 'toggle-sidebar' && e.target.nodeName !== 'A' && e.target.nodeName !== 'IMG') {
+      render.play()
+      updateCoords(e)
+      animateParticules(pointerX, pointerY)
+    }
+  }, false)
+
+  setCanvasSize()
+  window.addEventListener('resize', setCanvasSize, false)
+}
+
+function updateCoords (e) {
+  pointerX = (e.clientX || e.touches[0].clientX) - canvasEl.getBoundingClientRect().left
+  pointerY = e.clientY || e.touches[0].clientY - canvasEl.getBoundingClientRect().top
+}
+
+function setParticuleDirection (p) {
+  var angle = anime.random(0, 360) * Math.PI / 180
+  var value = anime.random(50, 100)
+  var radius = [-1, 1][anime.random(0, 1)] * value
+  return {
+    x: p.x + radius * Math.cos(angle),
+    y: p.y + radius * Math.sin(angle)
+  }
+}
+
+function createParticule (x, y) {
+  var p = {}
+  p.x = x
+  p.y = y
+  p.color =
+    "rgba(" +
+    colors[anime.random(0, colors.length - 1)] +
+    "," +
+    anime.random(0.2, 0.8) +
+    ")"
+  p.radius = anime.random(10, 20)
+  p.endPos = setParticuleDirection(p)
+  p.draw = function () {
+    ctx.beginPath()
+    ctx.arc(p.x, p.y, p.radius, 0, 2 * Math.PI, true)
+    ctx.fillStyle = p.color
+    ctx.fill()
+  }
+  return p
+}
+
+function createCircle (x, y) {
+  var p = {}
+  p.x = x
+  p.y = y
+  p.color = "#000"
+  p.radius = 0.1
+  p.alpha = 0.5
+  p.lineWidth = 6
+  p.draw = function () {
+    ctx.globalAlpha = p.alpha
+    ctx.beginPath()
+    ctx.arc(p.x, p.y, p.radius, 0, 2 * Math.PI, true)
+    ctx.lineWidth = p.lineWidth
+    ctx.strokeStyle = p.color
+    ctx.stroke()
+    ctx.globalAlpha = 1
+  }
+  return p
+}
+
+function renderParticule (anim) {
+  for (var i = 0; i < anim.animatables.length; i++) {
+    anim.animatables[i].target.draw()
+  }
+}
+
+function animateParticules (x, y) {
+  var circle = createCircle(x, y)
+  var particules = []
+  for (var i = 0; i < numberOfParticules; i++) {
+    particules.push(createParticule(x, y))
+  }
+  anime.timeline().add({
+    targets: particules,
+    x: function (p) {
+      return p.endPos.x
+    },
+    y: function (p) {
+      return p.endPos.y
+    },
+    radius: 0.1,
+    duration: anime.random(900, 1500),
+    easing: 'easeOutExpo',
+    update: renderParticule
+  })
+    .add({
+      targets: circle,
+      radius: anime.random(50, 100),
+      lineWidth: 0,
+      alpha: {
+        value: 0,
+        easing: 'linear',
+        duration: anime.random(600, 800)
+      },
+      duration: anime.random(1200, 1800),
+      easing: 'easeOutExpo',
+      update: renderParticule,
+      offset: 0
+    })
+}
