@@ -7,7 +7,7 @@ if (canvasEl) {
   // var tap = ('ontouchstart' in window || navigator.msMaxTouchPoints) ? 'touchstart' : 'mousedown'
   // Fixed the mobile scroll
   var tap = 'mousedown'
-  var colors = ["102, 167, 221", "62, 131, 225", "33, 78, 194"]
+  var colors = ["39, 38, 114", "50, 52, 155", "69, 74, 165"]
 
   var setCanvasSize = debounce(function () {
     canvasEl.width = window.innerWidth
