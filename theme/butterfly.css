@@ -373,7 +373,7 @@ p.top {
 textarea#veditor {
   resize: none !important;
   height: auto !important;
-  background-image: url("https://cdn.jsdelivr.net/gh/Flexiston/CDN/img/comment-bg.png");
+  background-image: url("https://cdn.jsdelivr.net/gh/Flexiston/CDN/img/plbj.gif");
   transition: all .25s ease-in-out 0s;
   background-size: contain;
   background-repeat: no-repeat;
